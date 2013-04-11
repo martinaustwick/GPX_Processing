@@ -7,7 +7,7 @@ void exportCurrentPathAsCSV()
 {
     String fileout = "outs/" +  track[0].getString("Date") + "_" + currentTrack + "_" + currentSeg + ".csv";
     PrintWriter output = createWriter(fileout);
-    output.println("dt, date, hour, minutes, seconds, lat, lon, elevation");
+    output.println("DateTime, date, hour, minutes, seconds, Latitude, Longitude, elevation");
     for(int i = 0; i<track.length; i++)
     {
         String lineOut = "";

@@ -27,14 +27,18 @@ void setup()
 
 void draw()
 {
-    if(!animated)
+     background(255);
+    camera(0.5*width*(1+cos(frameCount*0.01)), (0.5*height) + (0.5*width*sin(frameCount*0.01)), width/2, width/2, height/2, 0, 0, 0, -1);
+    stroke(255, 0, 0);
+    
+        if(!animated)
     {
-        background(255);
+       
         drawPath(track.length);
     }
     else
     {
-        background(255);
+        //background(255);
         stroke(0);
         animate();
         drawTime(width/2, 50);

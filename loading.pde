@@ -59,12 +59,19 @@ void linearMap()
     float dydx = (elat.y - elat.x)/((elon.y - elon.x)*cos(0.5*radians(elat.x+elat.y)));
     //println((elat.y - elat.x) + " " + (elon.y - elon.x) + " "  + " " + cos(0.5*radians(elat.x+elat.y)) +  " " + dydx);
     float xw, yw;
-    if(dydx>1) size(int(1000/dydx), 1000);
-    else size(1000, int(1000*dydx));
+    if(dydx>1) size(int(1000/dydx), 1000, P3D);
+    else size(1000, int(1000*dydx), P3D);
     //println(width + " " + height);
+    float lonmid = 0.5*(elon.x + elon.y);
+    float lonhw = 0.5*(elon.y - elon.x);
+    float latmid = 0.5*(elat.x + elat.y);
+    float lathw = 0.5*(elat.y - elat.x);
+    float buffer = 1.3;
+    
     for(int i = 0; i<track.length; i++)
     {
-        track[i].setFloat("x", map(track[i].getFloat("lon"), elon.x, elon.y, 0, width));
-        track[i].setFloat("y", map(track[i].getFloat("lat"), elat.x, elat.y, height, 0));
+        track[i].setFloat("x", map(track[i].getFloat("lon"), lonmid - buffer*lonhw, lonmid + buffer*lonhw, 0, width));
+        track[i].setFloat("y", map(track[i].getFloat("lat"), latmid - buffer*lathw, latmid + buffer*lathw, height, 0));
+        track[i].setFloat("z", map(float(track[i].getChild("ele").getContent()), ealt.x, ealt.y, 0, width*0.2));
     }
 }

@@ -3,7 +3,7 @@ void drawPath(int finalPoint)
     stroke(0);
     for(int i = 1; i<finalPoint; i++)
     {
-        line(track[i-1].getFloat("x"), track[i-1].getFloat("y"), track[i].getFloat("x"), track[i].getFloat("y")); 
+        line(track[i-1].getFloat("x"), track[i-1].getFloat("y"), track[i-1].getFloat("z"), track[i].getFloat("x"), track[i].getFloat("y"), track[i].getFloat("z")); 
     }
 }
 
