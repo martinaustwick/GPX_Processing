@@ -9,6 +9,7 @@ void drawPath(int finalPoint)
 
 void animate()
 {
+    currentLink = 1;
     while(secsAfterMidnight>track[currentLink].getFloat("sam") && currentLink<track.length-1)
     {
         currentLink++;
@@ -32,6 +33,7 @@ void drawTime(int x, int y)
 {
     rectMode(CENTER);
     noStroke();
+    stroke(0);
     fill(100);
     rect(x,y, 150, 40);
     
