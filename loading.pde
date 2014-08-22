@@ -59,25 +59,29 @@ void boxcar(int halfWidth)
       {
           thisTrack[i].setFloat("rawX", thisTrack[i].getFloat("x"));
           thisTrack[i].setFloat("rawY", thisTrack[i].getFloat("y"));
+          thisTrack[i].setFloat("rawZ", float(thisTrack[i].getChild("ele").getContent()));
       }
       
       for(int i = halfWidth; i<thisTrack.length-halfWidth; i++)
       {
           float smoothX = 0;
           float smoothY = 0;
+          float smoothZ = 0;
           
           for(int j = -halfWidth; j<=halfWidth; j++)
           {
               smoothX += thisTrack[i+j].getFloat("rawX");
-              smoothY += thisTrack[i+j].getFloat("rawY");                
+              smoothY += thisTrack[i+j].getFloat("rawY");    
+              smoothZ += thisTrack[i+j].getFloat("rawZ");           
           }
           
           smoothX /= (2*halfWidth) +1;
           smoothY /= (2*halfWidth) +1;
+          smoothZ /= (2*halfWidth) +1;
           
           thisTrack[i].setFloat("x", smoothX);
           thisTrack[i].setFloat("y", smoothY);
-          
+          thisTrack[i].setFloat("z", smoothZ);
         
       } 
     }
@@ -93,8 +97,16 @@ void linearMap()
     float dydx = (elat.y - elat.x)/((elon.y - elon.x)*cos(0.5*radians(elat.x+elat.y)));
     println((elat.y - elat.x) + " " + (elon.y - elon.x) + " "  + " " + cos(0.5*radians(elat.x+elat.y)) +  " " + dydx);
     float xw, yw;
-    if(dydx>1) size(int(1000/dydx), 1000);
-    else size(1000, int(1000*dydx));
+    if(d3D)
+    {
+        if(dydx>1) size(int(1000/dydx), 1000, P3D);
+        else size(1000, int(1000*dydx), P3D);
+    }
+    else
+    {  
+        if(dydx>1) size(int(1000/dydx), 1000);
+        else size(1000, int(1000*dydx));
+    }
     //println(width + " " + height);
     for(int j =0; j<tracks.size(); j++)
     {

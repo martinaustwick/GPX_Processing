@@ -1,9 +1,30 @@
 void drawPath(int finalPoint)
 {
-    stroke(0);
+    //stroke(0);
     for(int i = 1; i<finalPoint; i++)
     {
         line(track[i-1].getFloat("x"), track[i-1].getFloat("y"), track[i].getFloat("x"), track[i].getFloat("y")); 
+    }
+    
+    if(raw)
+    {
+        strokeWeight(1);
+        stroke(0, 0, 255, 50);
+        for(int i = 1; i<finalPoint; i++)
+        {       
+          
+          
+          line(track[i-1].getFloat("rawX"), track[i-1].getFloat("rawY"), track[i].getFloat("rawX"), track[i].getFloat("rawY")); 
+        }
+    }
+}
+
+void drawPath3(int finalPoint)
+{
+    stroke(0);
+    for(int i = 1; i<finalPoint; i++)
+    {
+        line(track[i-1].getFloat("x"), track[i-1].getFloat("y"), track[i-1].getFloat("z"), track[i].getFloat("x"), track[i].getFloat("y"), track[i].getFloat("z")); 
     }
 }
 
@@ -19,15 +40,28 @@ void animate()
     {
       float x = map(secsAfterMidnight, track[currentLink-1].getFloat("sam"), track[currentLink].getFloat("sam"), track[currentLink-1].getFloat("x"), track[currentLink].getFloat("x"));
       float y = map(secsAfterMidnight, track[currentLink-1].getFloat("sam"), track[currentLink].getFloat("sam"), track[currentLink-1].getFloat("y"), track[currentLink].getFloat("y"));
+      float z = map(secsAfterMidnight, track[currentLink-1].getFloat("sam"), track[currentLink].getFloat("sam"), float(track[currentLink-1].getChild("ele").getContent()), float(track[currentLink].getChild("ele").getContent()));
+      //shadow
+      stroke(0,100);
+      strokeWeight(5);
       drawPath(currentLink-1);
+      
+      stroke(0);
+      strokeWeight(1);
+      if(d3D) drawPath3(currentLink-1);
+
       line(x,y,track[currentLink-1].getFloat("x"),track[currentLink-1].getFloat("y"));
       
       noStroke();
       fill(255,0,0);
-      ellipse(x, y, 5,5);
-      stroke(255,0,0);
-      noFill();
-      ellipse(x, y, (secsAfterMidnight%60)/3, (secsAfterMidnight%60)/3);
+      pushMatrix();
+      
+        if(d3D) translate(0,0, z);
+        ellipse(x, y, 5,5);
+        stroke(255,0,0);
+        noFill();
+        ellipse(x, y, (secsAfterMidnight%60)/3, (secsAfterMidnight%60)/3);
+      popMatrix();
     }
     else
     {

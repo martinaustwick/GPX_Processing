@@ -14,6 +14,9 @@ float secsAfterMidnight;
 float secsIncrement = 2;
 int currentLink = 1;
 
+boolean d3D = false;
+boolean raw =true;
+
 void setup()
 {
   
@@ -54,6 +57,11 @@ void loader()
 
 void draw()
 {
+    if(d3D)
+    {
+      camera(width*0.5*(1+sin(frameCount*0.01)), width*0.5*(1+cos(frameCount*0.01)), width/2, width/2,height/2,0, 0,0,-1);
+    }
+    
     if(!animated)
     {
         background(255);
@@ -68,7 +76,7 @@ void draw()
             track = tracks.get(i);
             animate();
         }
-        drawTime(width/2, 50);
+        drawTime(width/2, height - 50);
         secsAfterMidnight += secsIncrement;
     }
 }
