@@ -12,8 +12,7 @@ void animate()
     currentLink = 1;
     while(secsAfterMidnight>track[currentLink].getFloat("sam") && currentLink<track.length-1)
     {
-        currentLink++;
-        
+        currentLink++;   
     }
     
     if(secsAfterMidnight<=track[currentLink].getFloat("sam"))
@@ -22,9 +21,17 @@ void animate()
       float y = map(secsAfterMidnight, track[currentLink-1].getFloat("sam"), track[currentLink].getFloat("sam"), track[currentLink-1].getFloat("y"), track[currentLink].getFloat("y"));
       drawPath(currentLink-1);
       line(x,y,track[currentLink-1].getFloat("x"),track[currentLink-1].getFloat("y"));
+      
+      noStroke();
+      fill(255,0,0);
+      ellipse(x, y, 5,5);
+      stroke(255,0,0);
+      noFill();
+      ellipse(x, y, (secsAfterMidnight%60)/3, (secsAfterMidnight%60)/3);
     }
     else
     {
+       //println("WTAF");
       drawPath(currentLink);
     }
 }

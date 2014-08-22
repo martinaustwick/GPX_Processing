@@ -7,11 +7,11 @@ int currentTrack = 0;
 float maxSize = 1000;
 
 String filename = "samplewalk.gpx";
-String rootname = "BoothTest";
+String rootname = "test";
 boolean animated = true;
 
 float secsAfterMidnight;
-float secsIncrement = 10;
+float secsIncrement = 2;
 int currentLink = 1;
 
 void setup()
@@ -28,12 +28,15 @@ void setup()
     
     secsAfterMidnight();
     secsAfterMidnight = etime.x;
+    
+    boxcar(3);
 }
 
 void loader()
 {
-    for(int i = 2; i<3; i++)
+    for(int i = 1; i<4; i++)
     {
+        
         XML root = loadXML(rootname + i +  ".gpx");
         
         if(!(root==null)) 
@@ -43,6 +46,7 @@ void loader()
             findExtrema(t);
             println(rootname + i +  ".gpx");
         }
+        else break;
     }
     
     
@@ -57,7 +61,7 @@ void draw()
     }
     else
     {
-        //background(255);
+        background(255);
         stroke(0);
         for(int i = 0; i<tracks.size(); i++)
         {

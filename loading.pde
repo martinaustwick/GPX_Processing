@@ -50,6 +50,39 @@ void secsAfterMidnight()
     }
 }
 
+void boxcar(int halfWidth)
+{
+    
+    for(XML [] thisTrack:tracks)
+    {
+      for(int i = 0; i<thisTrack.length; i++)
+      {
+          thisTrack[i].setFloat("rawX", thisTrack[i].getFloat("x"));
+          thisTrack[i].setFloat("rawY", thisTrack[i].getFloat("y"));
+      }
+      
+      for(int i = halfWidth; i<thisTrack.length-halfWidth; i++)
+      {
+          float smoothX = 0;
+          float smoothY = 0;
+          
+          for(int j = -halfWidth; j<=halfWidth; j++)
+          {
+              smoothX += thisTrack[i+j].getFloat("rawX");
+              smoothY += thisTrack[i+j].getFloat("rawY");                
+          }
+          
+          smoothX /= (2*halfWidth) +1;
+          smoothY /= (2*halfWidth) +1;
+          
+          thisTrack[i].setFloat("x", smoothX);
+          thisTrack[i].setFloat("y", smoothY);
+          
+        
+      } 
+    }
+}
+
 void linearMap()
 {
     /*
